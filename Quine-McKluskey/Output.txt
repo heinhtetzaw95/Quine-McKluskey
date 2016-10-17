@@ -1,0 +1,12 @@
+                    Hein Htet Zaw      CSC 40300     Section 11
+                            Fall 2016       Assignment #1
+-------------------------------------------------------------------------------------
+
+abcD | 3 | F
+aBcD | 2 | F
+aBCd | 2 | F
+ABcd | 2 | F
+aBCD | 1 | F
+AbCD | 1 | F
+ABcD | 1 | F
+ABCD | 0 | F
