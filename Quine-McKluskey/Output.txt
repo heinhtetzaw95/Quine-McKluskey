@@ -2,28 +2,7 @@
                             Fall 2016       Assignment #1
 -------------------------------------------------------------------------------------
 
-abcD | 3 | T
-aBcD | 2 | T
-aBCd | 2 | T
-ABcd | 2 | T
-aBCD | 1 | T
-AbCD | 1 | T
-ABcD | 1 | T
-ABCD | 0 | T
-8
-a_cD |  | F
-aB_D |  | T
-_BcD |  | T
-aBC_ |  | F
-ABc_ |  | F
-_BCD |  | T
-A_CD |  | F
-AB_D |  | T
-1
-_B_D |  | F
-0
-0
-------------------------------
+acD + BD + aBC + ABc + ACD
 
  ----------------------------------
  |      END OF PROGRAM OUTPUT     |

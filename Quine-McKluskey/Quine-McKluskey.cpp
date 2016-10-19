@@ -37,9 +37,10 @@ void header(ofstream &outfile);
 void footer(ofstream &outfile);
 int compareTerms(int termCount, string data0[][col], string data1[][col]);
 int mergeDuplicates(int termCount, string data0[][col]);
-void getUnmarged(string data0[][col], string data1[][col], string data2[][col], string data3[][col],
-				string newData[]);
+int getUnmarged(string data0[][col], string data1[][col], string data2[][col], string data3[][col],
+				string newData[][2]);
 string removeUnderscores(string data);
+int getResults(string original[], string reduced[][2], string result[], int orig, int redu);
 
 int main() {
 			//set up input and output files
@@ -67,7 +68,10 @@ int main() {
 				
 				//set up for original data and reduced data for later matrix
 		string originalData[terms];
-		string reducedData[terms];
+		string reducedData[terms][2];
+
+				//set up an array for the results
+		string result[terms];
 
 				//get the very first input -- initiate
 		temp = sentinel;
@@ -111,28 +115,17 @@ int main() {
 			termCount[i+1] = compareTerms(termCount[i], data[i], data[i+1]);
 		}
 
-		getUnmarged(data[0], data[1], data[2], data[3], reducedData);
+				//get unmarged data from raw data lists - 4 lists is enough in this case
+		int unmarged = getUnmarged(data[0], data[1], data[2], data[3], reducedData);
+
+				//get the final result from original data and reduced data lists
+		int resultCount = getResults(originalData, reducedData, result, termCount[0], unmarged);
 		
-		for (int i = 0; i < termCount[0]; i++) {
-			outfile << data[0][i][0] << " | " << data[0][i][1] << " | " << data[0][i][2] << endl;
+				//print out the final results with plus signs in between
+		for (int i = 0; i < resultCount; i++) {
+			if (i < resultCount-1) outfile << result[i] << " + ";
+			else outfile << result[i] << endl;
 		}
-		outfile << termCount[1] << endl;
-		for (int i = 0; i < termCount[1]; i++) {
-			outfile << data[1][i][0] << " | " << data[1][i][1] << " | " << data[1][i][2] << endl;
-		}
-		outfile << termCount[2] << endl;
-		for (int i = 0; i < termCount[2]; i++) {
-			outfile << data[2][i][0] << " | " << data[2][i][1] << " | " << data[2][i][2] << endl;
-		}
-		outfile << termCount[3] << endl;
-		for (int i = 0; i < termCount[3]; i++) {
-			outfile << data[3][i][0] << " | " << data[3][i][1] << " | " << data[3][i][2] << endl;
-		}
-		outfile << termCount[4] << endl;
-		for (int i = 0; i < termCount[4]; i++) {
-			outfile << data[4][i][0] << " | " << data[4][i][1] << " | " << data[4][i][2] << endl;
-		}
-		outfile << "------------------------------" << endl;
 
 				//update the sentinel check
 		infile >> sentinel;
@@ -140,8 +133,6 @@ int main() {
 
 			//print footer after everything
 	footer(outfile);
-
-	cin.get();
 
 			//return 0 and quit the app when everything is finished
 	return 0;
@@ -253,8 +244,8 @@ int mergeDuplicates(int termCount, string data0[][col]) {
 }
 
 //*****************************************************************************************************
-void getUnmarged(string data0[][col], string data1[][col], string data2[][col], string data3[][col],
-				 string newData[]) {
+int getUnmarged(string data0[][col], string data1[][col], string data2[][col], string data3[][col],
+				 string newData[][2]) {
 
 		// Receives – data tables with elements
 		// Task - look for unmarged terms and put in one new list
@@ -264,33 +255,77 @@ void getUnmarged(string data0[][col], string data1[][col], string data2[][col], 
 	int newCount = 0;
 	for (int i = 0; i < terms; i++) {
 
-				//check in list 0 and remove underscores if needed
+				//check in list 0
 		if (data0[i][2] == "F") {
-			newData[newCount] = removeUnderscores(data0[i][0]);
+			newData[newCount][0] = data0[i][0];
 			newCount++;
 		}
 
-				//check in list 1 and remove underscores if needed
+				//check in list 1
 		if (data1[i][2] == "F") {
-			newData[newCount] = removeUnderscores(data1[i][0]);
+			newData[newCount][0] = data1[i][0];
 			newCount++;
 		}
 
-				//check in list 2 and remove underscores if needed
+				//check in list 2
 		if (data2[i][2] == "F") {
-			newData[newCount] = removeUnderscores(data2[i][0]);
+			newData[newCount][0] = data2[i][0];
 			newCount++;
 		}
 
-				//check in list 3 and remove underscores if needed
+				//check in list 3
 		if (data3[i][2] == "F") {
-			newData[newCount] = removeUnderscores(data3[i][0]);
+			newData[newCount][0] = data3[i][0];
 			newCount++;
 		}
 	}
 
-	return;
+	return newCount;
 }
+
+//*****************************************************************************************************
+int getResults(string original[], string reduced[][2], string result[], int orig, int redu) {
+	
+		// Receives – original, reduced, and a new data lists; and their counts
+		// Task - get resutls from original data and reduced data lists
+		// Returns - list of results and number of out results
+
+			//set up result count
+	int resultCount = 0;
+
+	for (int i = 0; i < redu; i++) {
+			
+				//set up a determination flag whether or not to put in result
+		bool flag = false;
+
+				//go through the original terms
+		for (int j = 0; j < orig; j++) {
+			int	match = 0;
+
+					//look for matches and unmatches
+			for (int k = 0; k < reduced[i][0].length(); k++) {
+				if (reduced[i][0][k] == original[j][k] ||
+					reduced[i][0][k] == '_') {
+					match++;
+				}
+			}
+
+					//put a true flag if the term is one of the minmums
+			if (match == reduced[i][0].length()) flag = true;
+		}
+
+				//put in the result list
+		if (flag == true) {
+
+					//remove underscores before going into the result list
+			result[resultCount] = removeUnderscores(reduced[i][0]);
+			resultCount++;
+		}
+	}
+
+	return resultCount;
+}
+
 //*****************************************************************************************************
 string removeUnderscores(string data) {
 
@@ -298,7 +333,7 @@ string removeUnderscores(string data) {
 		// Task - removes the underscores
 		// Returns - a new string without underscores
 
-			//get a new string
+			//set up a new string
 	string newString = "";
 
 			//check all the characters in the string
