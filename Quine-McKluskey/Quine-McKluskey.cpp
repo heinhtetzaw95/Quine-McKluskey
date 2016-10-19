@@ -39,11 +39,12 @@ int compareTerms(int termCount, string data0[][col], string data1[][col]);
 int mergeDuplicates(int termCount, string data0[][col]);
 void getUnmarged(string data0[][col], string data1[][col], string data2[][col], string data3[][col],
 				string newData[]);
+string removeUnderscores(string data);
 
 int main() {
 			//set up input and output files
-//	ifstream infile("Test_data.txt", ios::in);		//test case
-	ifstream infile("data1.txt", ios::in);
+	ifstream infile("Test_data.txt", ios::in);		//test case
+//	ifstream infile("data1.txt", ios::in);
 	ofstream outfile("Output.txt", ios::out);
 
 			//print header section before anything
@@ -258,20 +259,60 @@ void getUnmarged(string data0[][col], string data1[][col], string data2[][col], 
 		// Receives – data tables with elements
 		// Task - look for unmarged terms and put in one new list
 		// Returns - the new list with unmarged terms
-
+		
+			//keep track of new data count
+	int newCount = 0;
 	for (int i = 0; i < terms; i++) {
-		if (data0[i][2] == "F")
-			cout << data0[i][0] << endl;
-		if (data1[i][2] == "F")
-			cout << data1[i][0] << endl;
-		if (data2[i][2] == "F")
-			cout << data2[i][0] << endl;
-		if (data3[i][2] == "F")
-			cout << data3[i][0] << endl;
+
+				//check in list 0 and remove underscores if needed
+		if (data0[i][2] == "F") {
+			newData[newCount] = removeUnderscores(data0[i][0]);
+			newCount++;
+		}
+
+				//check in list 1 and remove underscores if needed
+		if (data1[i][2] == "F") {
+			newData[newCount] = removeUnderscores(data1[i][0]);
+			newCount++;
+		}
+
+				//check in list 2 and remove underscores if needed
+		if (data2[i][2] == "F") {
+			newData[newCount] = removeUnderscores(data2[i][0]);
+			newCount++;
+		}
+
+				//check in list 3 and remove underscores if needed
+		if (data3[i][2] == "F") {
+			newData[newCount] = removeUnderscores(data3[i][0]);
+			newCount++;
+		}
 	}
 
 	return;
 }
+//*****************************************************************************************************
+string removeUnderscores(string data) {
+
+		// Receives – get a string with or without understores
+		// Task - removes the underscores
+		// Returns - a new string without underscores
+
+			//get a new string
+	string newString = "";
+
+			//check all the characters in the string
+	for (int i = 0; i < data.length(); i++) {
+
+				//remove the underscore if there is one
+		if (data[i] != '_') {
+			newString += data[i];
+		}
+	}
+
+	return newString;
+}
+
 //*****************************************************************************************************
 void header(ofstream &outfile) {
 
