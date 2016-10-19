@@ -36,6 +36,7 @@ using namespace std;
 void header(ofstream &outfile);
 void footer(ofstream &outfile);
 int compareTerms(int termCount, string data0[][col], string data1[][col]);
+int mergeDuplicates(int termCount, string data0[][col]);
 
 int main() {
 	//set up input and output files
@@ -59,20 +60,20 @@ int main() {
 		string temp;
 
 		//create arrays to store the terms / using 3D array in this case
-		string data[10][terms][col];
+		string data[5][terms][col];
 
 		//get the very first input -- initiate
 		temp = sentinel;
 
 		//keep track of the number of terms and variables
-		int termCount = 0, termCount1 = 0, termCount2 = 0, termCount3 = 0, termCount4 = 0;
-		int varCount = 0;
+		int termCount[5] = { 0 };
 
 		//scan for every term till 'X' appears
 		while (temp[0] != 'X') {
 
 			//count the negative variables in each term
 			int negatives = 0;
+			int varCount = 0;
 
 			//update the variable count
 			varCount = temp.length();
@@ -84,40 +85,43 @@ int main() {
 				if (islower(temp[i])) negatives++;
 			}
 			//store the term in the array
-			data[0][termCount][0] = temp;
+			data[0][termCount[0]][0] = temp;
 
 			//keep negative count and merged status in the array
-			data[0][termCount][1] = to_string(negatives);
-			data[0][termCount][2] = "F";
+			data[0][termCount[0]][1] = to_string(negatives);
+			data[0][termCount[0]][2] = "F";
 
 			//get the next term
 			infile >> temp;
 
 			//increment the term counter
-			termCount++;
+			termCount[0]++;
 		}
-
-		outfile << endl << termCount << " terms | " << varCount << " variables" << endl << endl;
-
-		termCount1 = compareTerms(termCount, data[0], data[1]);
-
+		for (int i = 0; i < 4; i++) {
+			termCount[i+1] = compareTerms(termCount[i], data[i], data[i+1]);
+		}
+		
 		//comparing original and new tables
-		for (int i = 0; i < termCount; i++) {
+		for (int i = 0; i < termCount[0]; i++) {
 			outfile << data[0][i][0] << " | " << data[0][i][1] << " | " << data[0][i][2] << endl;
 		}
-		outfile << termCount1 << endl;
-		for (int i = 0; i < termCount1; i++) {
+		outfile << termCount[1] << endl;
+		for (int i = 0; i < termCount[1]; i++) {
 			outfile << data[1][i][0] << " | " << data[1][i][1] << " | " << data[1][i][2] << endl;
 		}
-
-		termCount2 = compareTerms(termCount1, data[1], data[2]);
-
-		outfile << termCount2 << endl;
-		for (int i = 0; i < termCount2; i++) {
-			outfile << data[1][i][0] << " | " << data[1][i][1] << " | " << data[1][i][2] << endl;
+		outfile << termCount[2] << endl;
+		for (int i = 0; i < termCount[2]; i++) {
+			outfile << data[2][i][0] << " | " << data[2][i][1] << " | " << data[2][i][2] << endl;
 		}
-
-
+		outfile << termCount[3] << endl;
+		for (int i = 0; i < termCount[3]; i++) {
+			outfile << data[3][i][0] << " | " << data[3][i][1] << " | " << data[3][i][2] << endl;
+		}
+		outfile << termCount[4] << endl;
+		for (int i = 0; i < termCount[4]; i++) {
+			outfile << data[4][i][0] << " | " << data[4][i][1] << " | " << data[4][i][2] << endl;
+		}
+		outfile << "------------------------------" << endl;
 		//update the sentinel check
 		infile >> sentinel;
 	}
@@ -125,7 +129,7 @@ int main() {
 	//print footer after everything
 	footer(outfile);
 
-//	cin.get();
+	cin.get();
 
 	//return 0 and quit the app when everything is finished
 	return 0;
@@ -134,9 +138,9 @@ int main() {
 //*****************************************************************************************************
 int compareTerms(int termCount, string data0[][col], string data1[][col]) {
 
-	// Receives – original data table and an empty data table
+	// Receives – original data table and an empty data table and number of terms in original table
 	// Task - compare terms in original table and put the results in new table
-	// Returns - new data table
+	// Returns - new data table and its term counts
 
 	if (termCount == 0) return 0;
 
@@ -145,26 +149,57 @@ int compareTerms(int termCount, string data0[][col], string data1[][col]) {
 
 	for (int i = 0; i < termCount-1; i++) {
 		for (int j = i + 1; j < termCount; j++) {
-			string newString; int diff = 0; 
+			string newString; int diff = 0; bool marged = false;
 
 			for (int k = 0; k < varCount; k++) {
 				
 				if (data0[i][0][k] != data0[j][0][k]) {
 					newString += "_";
+					marged = true;
 					diff++;
 				}
-				else newString += data0[j][0][k];
+				else {
+					newString += data0[j][0][k];
+				}
 			}
 
-			if (diff < 2) {
+			if (diff == 1) {
 				data1[newCount][0] = newString;
 				data1[newCount][1] = "0";
 				data1[newCount][2] = "F";
 				newCount++;
+
+				if (marged == true) {
+					data0[i][2] = data0[j][2] = "T";
+				}
 			}
 		}
 	}
+
+	newCount = mergeDuplicates(newCount, data1);
 	return newCount;
+}
+
+//*****************************************************************************************************
+int mergeDuplicates(int termCount, string data0[][col]) {
+
+		// Receives – a table with terms and number of terms
+		// Task - eliminate the duplicate data and keep only one
+		// Returns - table without duplicate terms and new term count
+
+	for (int i = 0; i < termCount; i++) {
+		for (int j = i + 1; j < termCount; j++) {
+			if (data0[i][0] == data0[j][0]){
+				termCount--;
+				for (int k = j; k < termCount; k++) {
+					data0[k][0] = data0[k + 1][0];
+					data0[k][1] = data0[k + 1][1];
+					data0[k][2] = data0[k + 1][2];
+				}
+			}
+		}
+	}
+	return termCount;
 }
 
 //*****************************************************************************************************
