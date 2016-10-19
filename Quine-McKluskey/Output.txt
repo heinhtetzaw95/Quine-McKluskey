@@ -2,11 +2,150 @@
                             Fall 2016       Assignment #1
 -------------------------------------------------------------------------------------
 
-abcD | 3 | F
-aBcD | 2 | F
-aBCd | 2 | F
-ABcd | 2 | F
-aBCD | 1 | F
-AbCD | 1 | F
-ABcD | 1 | F
+
+6 terms | 3 variables
+
+ABC | 0 | F
+Abc | 2 | F
+ABc | 1 | F
+AbC | 1 | F
+abC | 2 | F
+aBc | 2 | F
+6
+AB_ | 0 | F
+A_C | 0 | F
+A_c | 0 | F
+Ab_ | 0 | F
+_Bc | 0 | F
+_bC | 0 | F
+2
+AB_ | 0 | F
+A_C | 0 | F
+
+8 terms | 4 variables
+
 ABCD | 0 | F
+ABcD | 1 | F
+ABcd | 2 | F
+AbCD | 1 | F
+aBCD | 1 | F
+aBCd | 2 | F
+aBcD | 2 | F
+abcD | 3 | F
+8
+AB_D | 0 | F
+A_CD | 0 | F
+_BCD | 0 | F
+ABc_ | 0 | F
+_BcD | 0 | F
+aBC_ | 0 | F
+aB_D | 0 | F
+a_cD | 0 | F
+2
+AB_D | 0 | F
+A_CD | 0 | F
+
+9 terms | 6 variables
+
+aBcDEf | 3 | F
+ABcdEF | 2 | F
+AbCdEF | 2 | F
+ABCdEF | 1 | F
+aBCDEf | 2 | F
+ABCDEF | 0 | F
+ABcdEf | 3 | F
+AbCDEF | 1 | F
+aBcDef | 4 | F
+8
+aB_DEf | 0 | F
+aBcD_f | 0 | F
+AB_dEF | 0 | F
+ABcdE_ | 0 | F
+A_CdEF | 0 | F
+AbC_EF | 0 | F
+ABC_EF | 0 | F
+A_CDEF | 0 | F
+2
+aB_DEf | 0 | F
+aBcD_f | 0 | F
+
+11 terms | 5 variables
+
+abcde | 5 | F
+AbCde | 3 | F
+ABcdE | 2 | F
+abCde | 4 | F
+aBCDE | 1 | F
+Abcde | 4 | F
+abCDE | 2 | F
+abCDe | 3 | F
+aBcDE | 2 | F
+ABCDE | 0 | F
+AbCDe | 2 | F
+11
+ab_de | 0 | F
+_bcde | 0 | F
+_bCde | 0 | F
+Ab_de | 0 | F
+AbC_e | 0 | F
+abC_e | 0 | F
+a_CDE | 0 | F
+aB_DE | 0 | F
+_BCDE | 0 | F
+abCD_ | 0 | F
+_bCDe | 0 | F
+4
+ab_de | 0 | F
+_bcde | 0 | F
+_bCde | 0 | F
+Ab_de | 0 | F
+
+8 terms | 5 variables
+
+aBCdE | 2 | F
+ABCde | 2 | F
+ABcde | 3 | F
+aBcdE | 3 | F
+ABcDe | 2 | F
+ABCdE | 1 | F
+AbCde | 3 | F
+AbCdE | 2 | F
+8
+aB_dE | 0 | F
+_BCdE | 0 | F
+AB_de | 0 | F
+ABCd_ | 0 | F
+A_Cde | 0 | F
+ABc_e | 0 | F
+A_CdE | 0 | F
+AbCd_ | 0 | F
+2
+aB_dE | 0 | F
+_BCdE | 0 | F
+
+8 terms | 4 variables
+
+abCd | 3 | F
+aBcd | 3 | F
+Abcd | 3 | F
+AbcD | 2 | F
+abCD | 2 | F
+aBCD | 1 | F
+abcD | 3 | F
+aBCd | 2 | F
+8
+abC_ | 0 | F
+a_Cd | 0 | F
+aB_d | 0 | F
+Abc_ | 0 | F
+_bcD | 0 | F
+a_CD | 0 | F
+ab_D | 0 | F
+aBC_ | 0 | F
+2
+abC_ | 0 | F
+a_Cd | 0 | F
+
+ ----------------------------------
+ |      END OF PROGRAM OUTPUT     |
+ ----------------------------------

@@ -25,47 +25,55 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
-
-//define the maximum variables and terms in the input file
+#include <cmath>
+#include <array>
+	
+		//define the maximum variables and terms in the input file
 #define variables 6
 #define terms 12
-#define col 3
 
 using namespace std;
 
 void header(ofstream &outfile);
 void footer(ofstream &outfile);
-int compareTerms(int termCount, string data0[][col], string data1[][col]);
+int compareTerms(int termCount, int data0[][variables+2], int data1[][variables+2]);
 
 int main() {
-	//set up input and output files
-//	ifstream infile("Test_data.txt", ios::in);		//test case
-	ifstream infile("data1.txt", ios::in);
+			//set up input and output files
+	ifstream infile("Test_data.txt", ios::in);		//test case
+//	ifstream infile("data1.txt", ios::in);
 	ofstream outfile("Output.txt", ios::out);
 
-	//print header section before anything
+			//print header section before anything
 	header(outfile);
 
-	//set up sentinel watcher
+			//set up sentinel watcher
 	string sentinel;
 
-	//get the very first term
+			//get the very first term
 	infile >> sentinel;
 
-	//repeat processing till 'S' appears
+			//repeat processing till 'S' appears
 	while (sentinel[0] != 'S') {
 
 		//declare a temporary storage variable for inputs
 		string temp;
 
 		//create arrays to store the terms / using 3D array in this case
-		string data[10][terms][col];
+		string readValues[terms];
+		int data[3][terms][variables + 2];
+		for (int i = 0; i < terms; i++) {
+			data[0][i][6] = 0;
+			data[0][i][7] = 0;
+		}
 
 		//get the very first input -- initiate
 		temp = sentinel;
 
 		//keep track of the number of terms and variables
-		int termCount = 0, termCount1 = 0, termCount2 = 0, termCount3 = 0, termCount4 = 0;
+		int termCount = 0;
+		int termCount1 = 0;
+		int termCount2 = 0;
 		int varCount = 0;
 
 		//scan for every term till 'X' appears
@@ -80,15 +88,11 @@ int main() {
 			//break down each term into variables
 			for (int i = 0; i < varCount; i++) {
 
-				//check number of lower case letters
-				if (islower(temp[i])) negatives++;
+				//convert the letters to boolean form
+				if (temp[i] < 91) data[0][termCount][temp[i] - 65] = 1;
+				else data[0][termCount][temp[i] - 97] = 0;
 			}
-			//store the term in the array
-			data[0][termCount][0] = temp;
-
-			//keep negative count and merged status in the array
-			data[0][termCount][1] = to_string(negatives);
-			data[0][termCount][2] = "F";
+			readValues[termCount] = temp;
 
 			//get the next term
 			infile >> temp;
@@ -96,83 +100,47 @@ int main() {
 			//increment the term counter
 			termCount++;
 		}
+			termCount1 = compareTerms(termCount, data[0], data[1]);
 
-		outfile << endl << termCount << " terms | " << varCount << " variables" << endl << endl;
-
-		termCount1 = compareTerms(termCount, data[0], data[1]);
-
-		//comparing original and new tables
-		for (int i = 0; i < termCount; i++) {
-			outfile << data[0][i][0] << " | " << data[0][i][1] << " | " << data[0][i][2] << endl;
+			outfile << termCount << " terms | " << varCount << " variables" << endl << endl;
+			for (int i = 0; i < termCount; i++) {
+				for (int j = 0; j < varCount; j++) {
+					outfile << data[0][i][j];
+				}
+				outfile << " | " << data[0][0][6] << " | " << data[0][0][7] << endl;
+			}
+			outfile << "_____________________" << endl;
+					//update the sentinel check
+			infile >> sentinel;
 		}
-		outfile << termCount1 << endl;
-		for (int i = 0; i < termCount1; i++) {
-			outfile << data[1][i][0] << " | " << data[1][i][1] << " | " << data[1][i][2] << endl;
-		}
-
-		termCount2 = compareTerms(termCount1, data[1], data[2]);
-
-		outfile << termCount2 << endl;
-		for (int i = 0; i < termCount2; i++) {
-			outfile << data[1][i][0] << " | " << data[1][i][1] << " | " << data[1][i][2] << endl;
-		}
-
-
-		//update the sentinel check
-		infile >> sentinel;
-	}
-
-	//print footer after everything
+	
+			//print footer after everything
 	footer(outfile);
 
 //	cin.get();
 
-	//return 0 and quit the app when everything is finished
+			//return 0 and quit the app when everything is finished
 	return 0;
 }
 
 //*****************************************************************************************************
-int compareTerms(int termCount, string data0[][col], string data1[][col]) {
+int compareTerms(int termCount, int data0[][variables+2], int data1[][variables+2]) {
 
-	// Receives – original data table and an empty data table
-	// Task - compare terms in original table and put the results in new table
-	// Returns - new data table
+			// Receives – original data table and an empty data table
+			// Task - compare terms in original table and put the results in new table
+			// Returns - new data table
 
 	if (termCount == 0) return 0;
 
-	int varCount = data0[0][0].length();
-	int newCount = 0;
-
-	for (int i = 0; i < termCount-1; i++) {
-		for (int j = i + 1; j < termCount; j++) {
-			string newString; int diff = 0; 
-
-			for (int k = 0; k < varCount; k++) {
-				
-				if (data0[i][0][k] != data0[j][0][k]) {
-					newString += "_";
-					diff++;
-				}
-				else newString += data0[j][0][k];
-			}
-
-			if (diff < 2) {
-				data1[newCount][0] = newString;
-				data1[newCount][1] = "0";
-				data1[newCount][2] = "F";
-				newCount++;
-			}
-		}
-	}
-	return newCount;
+	return 0;
 }
 
 //*****************************************************************************************************
 void header(ofstream &outfile) {
 
-	// Receives – the output file
-	// Task - Prints the output preamble
-	// Returns - Nothing
+			// Receives – the output file
+			// Task - Prints the output preamble
+			// Returns - Nothing
 
 	outfile << setw(33) << "Hein Htet Zaw";
 	outfile << setw(15) << "CSC 40300";
@@ -188,9 +156,9 @@ void header(ofstream &outfile) {
 //*****************************************************************************************************
 void footer(ofstream &outfile) {
 
-	// Receives – the output file
-	// Task - Prints the output salutation
-	// Returns - Nothing
+			// Receives – the output file
+			// Task - Prints the output salutation
+			// Returns - Nothing
 
 	outfile << endl;
 	outfile << setw(35) << "----------------------------------" << endl;
