@@ -2,139 +2,25 @@
                             Fall 2016       Assignment #1
 -------------------------------------------------------------------------------------
 
-ABC | 0 | T
-Abc | 2 | T
-ABc | 1 | T
-AbC | 1 | T
-abC | 2 | T
-aBc | 2 | T
-6
-AB_ | 0 | T
-A_C | 0 | T
-A_c | 0 | T
-Ab_ | 0 | T
-_Bc | 0 | F
-_bC | 0 | F
-1
-A__ | 0 | F
-0
-0
-------------------------------
-ABCD | 0 | T
-ABcD | 1 | T
-ABcd | 2 | T
-AbCD | 1 | T
-aBCD | 1 | T
-aBCd | 2 | T
+abcD | 3 | T
 aBcD | 2 | T
-abcD | 3 | T
-8
-AB_D | 0 | T
-A_CD | 0 | F
-_BCD | 0 | T
-ABc_ | 0 | F
-_BcD | 0 | T
-aBC_ | 0 | F
-aB_D | 0 | T
-a_cD | 0 | F
-1
-_B_D | 0 | F
-0
-0
-------------------------------
-aBcDEf | 3 | T
-ABcdEF | 2 | T
-AbCdEF | 2 | T
-ABCdEF | 1 | T
-aBCDEf | 2 | T
-ABCDEF | 0 | T
-ABcdEf | 3 | T
-AbCDEF | 1 | T
-aBcDef | 4 | T
-8
-aB_DEf | 0 | F
-aBcD_f | 0 | F
-AB_dEF | 0 | F
-ABcdE_ | 0 | F
-A_CdEF | 0 | T
-AbC_EF | 0 | T
-ABC_EF | 0 | T
-A_CDEF | 0 | T
-1
-A_C_EF | 0 | F
-0
-0
-------------------------------
-abcde | 5 | T
-AbCde | 3 | T
-ABcdE | 2 | F
-abCde | 4 | T
-aBCDE | 1 | T
-Abcde | 4 | T
-abCDE | 2 | T
-abCDe | 3 | T
-aBcDE | 2 | T
-ABCDE | 0 | T
-AbCDe | 2 | T
-11
-ab_de | 0 | T
-_bcde | 0 | T
-_bCde | 0 | T
-Ab_de | 0 | T
-AbC_e | 0 | T
-abC_e | 0 | T
-a_CDE | 0 | F
-aB_DE | 0 | F
-_BCDE | 0 | F
-abCD_ | 0 | F
-_bCDe | 0 | T
-2
-_b_de | 0 | F
-_bC_e | 0 | F
-0
-0
-------------------------------
-aBCdE | 2 | T
-ABCde | 2 | T
-ABcde | 3 | T
-aBcdE | 3 | T
-ABcDe | 2 | T
-ABCdE | 1 | T
-AbCde | 3 | T
-AbCdE | 2 | T
-8
-aB_dE | 0 | F
-_BCdE | 0 | F
-AB_de | 0 | F
-ABCd_ | 0 | T
-A_Cde | 0 | T
-ABc_e | 0 | F
-A_CdE | 0 | T
-AbCd_ | 0 | T
-1
-A_Cd_ | 0 | F
-0
-0
-------------------------------
-abCd | 3 | T
-aBcd | 3 | T
-Abcd | 3 | T
-AbcD | 2 | T
-abCD | 2 | T
-aBCD | 1 | T
-abcD | 3 | T
 aBCd | 2 | T
+ABcd | 2 | T
+aBCD | 1 | T
+AbCD | 1 | T
+ABcD | 1 | T
+ABCD | 0 | T
 8
-abC_ | 0 | T
-a_Cd | 0 | T
-aB_d | 0 | F
-Abc_ | 0 | F
-_bcD | 0 | F
-a_CD | 0 | T
-ab_D | 0 | F
-aBC_ | 0 | T
+a_cD |  | F
+aB_D |  | T
+_BcD |  | T
+aBC_ |  | F
+ABc_ |  | F
+_BCD |  | T
+A_CD |  | F
+AB_D |  | T
 1
-a_C_ | 0 | F
+_B_D |  | F
 0
 0
 ------------------------------
