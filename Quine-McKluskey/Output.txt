@@ -24,7 +24,7 @@ The Original Boolean Expression:
 abcde + AbCde + ABcdE + abCde + aBCDE + Abcde + abCDE + abCDe + aBcDE + ABCDE + AbCDe
 
 The Minimized Boolean Expression: 
-bde + ABcdE + aBDE + BCDE + bCe + aCDE
+bde + ABcdE + aBDE + BCDE + bCe
 -------------------------------------------------------------------------------------
 The Original Boolean Expression: 
 aBCdE + ABCde + ABcde + aBcdE + ABcDe + ABCdE + AbCde + AbCdE

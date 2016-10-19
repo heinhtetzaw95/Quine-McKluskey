@@ -275,24 +275,32 @@ int getUnmarged(string data0[][col], string data1[][col], string data2[][col], s
 
 				//check in list 0
 		if (data0[i][2] == "F") {
+
+					//put it in the new list if found
 			newData[newCount][12] = data0[i][0];
 			newCount++;
 		}
 
 				//check in list 1
 		if (data1[i][2] == "F") {
+
+					//put it in the new list if found
 			newData[newCount][12] = data1[i][0];
 			newCount++;
 		}
 
 				//check in list 2
 		if (data2[i][2] == "F") {
+
+					//put it in the new list if found
 			newData[newCount][12] = data2[i][0];
 			newCount++;
 		}
 
 				//check in list 3
 		if (data3[i][2] == "F") {
+					
+					//put it in the new list if found
 			newData[newCount][12] = data3[i][0];
 			newCount++;
 		}
@@ -327,7 +335,6 @@ int getResults(string original[], string reduced[][terms+1], string result[], in
 				}
 				
 			}
-
 					//place X where the matches are
 			if(match==reduced[i][12].length()) reduced[i][j] = "X";
 		}
@@ -348,7 +355,6 @@ int getResults(string original[], string reduced[][terms+1], string result[], in
 						//keep track of the number
 				count++;
 			}
-
 
 					//put the results into the result array
 			if (j == redu - 1 && count == 1) {
