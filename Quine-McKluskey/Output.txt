@@ -3,9 +3,40 @@
 -------------------------------------------------------------------------------------
 
 The Original Boolean Expression: 
-abcD + aBcD + aBCd + ABcd + aBCD + AbCD + ABcD + ABCD
+ABC + Abc + ABc + AbC + abC + aBc
 
 The Minimized Boolean Expression: 
+A + bC + Bc
+-------------------------------------------------------------------------------------
+The Original Boolean Expression: 
+ABCD + ABcD + ABcd + AbCD + aBCD + aBCd + aBcD + abcD
+
+The Minimized Boolean Expression: 
+ABc + ACD + aBC + acD
+-------------------------------------------------------------------------------------
+The Original Boolean Expression: 
+aBcDEf + ABcdEF + AbCdEF + ABCdEF + aBCDEf + ABCDEF + ABcdEf + AbCDEF + aBcDef
+
+The Minimized Boolean Expression: 
+ACEF + aBDEf + ABcdE + aBcDf
+-------------------------------------------------------------------------------------
+The Original Boolean Expression: 
+abcde + AbCde + ABcdE + abCde + aBCDE + Abcde + abCDE + abCDe + aBcDE + ABCDE + AbCDe
+
+The Minimized Boolean Expression: 
+bde + ABcdE + aBDE + BCDE + bCe + aCDE
+-------------------------------------------------------------------------------------
+The Original Boolean Expression: 
+aBCdE + ABCde + ABcde + aBcdE + ABcDe + ABCdE + AbCde + AbCdE
+
+The Minimized Boolean Expression: 
+aBdE + ABce + ACd
+-------------------------------------------------------------------------------------
+The Original Boolean Expression: 
+abCd + aBcd + Abcd + AbcD + abCD + aBCD + abcD + aBCd
+
+The Minimized Boolean Expression: 
+aC + aBd + Abc
 -------------------------------------------------------------------------------------
 
  ----------------------------------

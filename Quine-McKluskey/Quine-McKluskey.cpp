@@ -44,8 +44,7 @@ int getUnmarged(string data0[][col], string data1[][col], string data2[][col], s
 
 int main() {
 			//set up input and output files
-	ifstream infile("Test_data.txt", ios::in);		//test case
-//	ifstream infile("data1.txt", ios::in);
+	ifstream infile("data1.txt", ios::in);
 	ofstream outfile("Output.txt", ios::out);
 
 			//print header section before anything
@@ -258,6 +257,7 @@ int mergeDuplicates(int termCount, string data0[][col]) {
 			}
 		}
 	}
+
 	return termCount;
 }
 
@@ -313,9 +313,6 @@ int getResults(string original[], string reduced[][terms+1], string result[], in
 
 	for (int i = 0; i < redu; i++) {
 
-				//set up a determination flag whether or not to put in result
-		bool flag = false;
-
 				//go through the original terms
 		for (int j = 0; j < orig; j++) {
 			int	match = 0;
@@ -324,26 +321,63 @@ int getResults(string original[], string reduced[][terms+1], string result[], in
 			for (int k = 0; k < reduced[i][12].length(); k++) {
 				if (reduced[i][12][k] == original[j][k] ||
 					reduced[i][12][k] == '_') {
+
+							//record number of matches
 					match++;
 				}
 				
 			}
+
+					//place X where the matches are
 			if(match==reduced[i][12].length()) reduced[i][j] = "X";
-
 		}
+	}
 
-		cout << reduced[i][12] << ": ";
+			//get the matches as a list
+	int reduNum = 0;
+	for (int i = 0; i < orig; i++) {
+		int count = 0; int reduNum = 0;
 
-		for (int j = 0; j < orig; j++) {
-			cout << "\t" << reduced[i][j];
+				//scan through reduced elements
+		for (int j = 0; j < redu; j++) {
+				
+					//get the number of reduced terms with only X in colomn
+			if (reduced[j][i] == "X") {
+				reduNum = j;
+
+						//keep track of the number
+				count++;
+			}
+
+
+					//put the results into the result array
+			if (j == redu - 1 && count == 1) {
+
+						//remove the underscores before putting in
+				result[resultCount] = removeUnderscores(reduced[reduNum][12]);
+				resultCount++;
+			}
 		}
-		cout << endl;
-				//put in the result list
-		if (flag == true) {
+	}
 
-					//remove underscores before going into the result list
-			result[resultCount] = removeUnderscores(reduced[i][12]);
-			resultCount++;
+			//prepare the result list to pass back
+	for (int i = 0; i < resultCount; i++) {
+		for (int j = i + 1; j < resultCount; j++) {
+
+					//eliminate the second one if duplicate is found
+			if (result[i] == result[j]) {
+
+						//reduce the table size
+				resultCount--;
+
+						//delete the second duplicate element
+				result[j] = { NULL };
+	
+						//replace the duplicate with the next element and move table forward
+				for (int k = j; k < resultCount; k++) {
+					result[k] = result[k + 1];
+				}
+			}
 		}
 	}
 
