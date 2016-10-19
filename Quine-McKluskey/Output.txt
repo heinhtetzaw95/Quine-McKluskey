@@ -2,25 +2,139 @@
                             Fall 2016       Assignment #1
 -------------------------------------------------------------------------------------
 
-abcD | 3 | T
-aBcD | 2 | T
-aBCd | 2 | T
-ABcd | 2 | T
-aBCD | 1 | T
-AbCD | 1 | T
-ABcD | 1 | T
+ABC | 0 | T
+Abc | 2 | T
+ABc | 1 | T
+AbC | 1 | T
+abC | 2 | T
+aBc | 2 | T
+6
+AB_ |  | T
+A_C |  | T
+A_c |  | T
+Ab_ |  | T
+_Bc |  | F
+_bC |  | F
+1
+A__ |  | F
+0
+0
+------------------------------
 ABCD | 0 | T
+ABcD | 1 | T
+ABcd | 2 | T
+AbCD | 1 | T
+aBCD | 1 | T
+aBCd | 2 | T
+aBcD | 2 | T
+abcD | 3 | T
 8
-a_cD |  | F
-aB_D |  | T
+AB_D |  | T
+A_CD |  | F
+_BCD |  | T
+ABc_ |  | F
 _BcD |  | T
 aBC_ |  | F
-ABc_ |  | F
-_BCD |  | T
-A_CD |  | F
-AB_D |  | T
+aB_D |  | T
+a_cD |  | F
 1
 _B_D |  | F
+0
+0
+------------------------------
+aBcDEf | 3 | T
+ABcdEF | 2 | T
+AbCdEF | 2 | T
+ABCdEF | 1 | T
+aBCDEf | 2 | T
+ABCDEF | 0 | T
+ABcdEf | 3 | T
+AbCDEF | 1 | T
+aBcDef | 4 | T
+8
+aB_DEf |  | F
+aBcD_f |  | F
+AB_dEF |  | F
+ABcdE_ |  | F
+A_CdEF |  | T
+AbC_EF |  | T
+ABC_EF |  | T
+A_CDEF |  | T
+1
+A_C_EF |  | F
+0
+0
+------------------------------
+abcde | 5 | T
+AbCde | 3 | T
+ABcdE | 2 | F
+abCde | 4 | T
+aBCDE | 1 | T
+Abcde | 4 | T
+abCDE | 2 | T
+abCDe | 3 | T
+aBcDE | 2 | T
+ABCDE | 0 | T
+AbCDe | 2 | T
+11
+ab_de |  | T
+_bcde |  | T
+_bCde |  | T
+Ab_de |  | T
+AbC_e |  | T
+abC_e |  | T
+a_CDE |  | F
+aB_DE |  | F
+_BCDE |  | F
+abCD_ |  | F
+_bCDe |  | T
+2
+_b_de |  | F
+_bC_e |  | F
+0
+0
+------------------------------
+aBCdE | 2 | T
+ABCde | 2 | T
+ABcde | 3 | T
+aBcdE | 3 | T
+ABcDe | 2 | T
+ABCdE | 1 | T
+AbCde | 3 | T
+AbCdE | 2 | T
+8
+aB_dE |  | F
+_BCdE |  | F
+AB_de |  | F
+ABCd_ |  | T
+A_Cde |  | T
+ABc_e |  | F
+A_CdE |  | T
+AbCd_ |  | T
+1
+A_Cd_ |  | F
+0
+0
+------------------------------
+abCd | 3 | T
+aBcd | 3 | T
+Abcd | 3 | T
+AbcD | 2 | T
+abCD | 2 | T
+aBCD | 1 | T
+abcD | 3 | T
+aBCd | 2 | T
+8
+abC_ |  | T
+a_Cd |  | T
+aB_d |  | F
+Abc_ |  | F
+_bcD |  | F
+a_CD |  | T
+ab_D |  | F
+aBC_ |  | T
+1
+a_C_ |  | F
 0
 0
 ------------------------------

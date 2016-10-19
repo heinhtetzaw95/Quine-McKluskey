@@ -37,11 +37,13 @@ void header(ofstream &outfile);
 void footer(ofstream &outfile);
 int compareTerms(int termCount, string data0[][col], string data1[][col]);
 int mergeDuplicates(int termCount, string data0[][col]);
+void getUnmarged(string data0[][col], string data1[][col], string data2[][col], string data3[][col],
+				string newData[]);
 
 int main() {
 			//set up input and output files
-	ifstream infile("Test_data.txt", ios::in);		//test case
-//	ifstream infile("data1.txt", ios::in);
+//	ifstream infile("Test_data.txt", ios::in);		//test case
+	ifstream infile("data1.txt", ios::in);
 	ofstream outfile("Output.txt", ios::out);
 
 			//print header section before anything
@@ -61,6 +63,10 @@ int main() {
 
 				//create arrays to store the terms / using 3D array in this case
 		string data[5][terms][col];
+				
+				//set up for original data and reduced data for later matrix
+		string originalData[terms];
+		string reducedData[terms];
 
 				//get the very first input -- initiate
 		temp = sentinel;
@@ -86,6 +92,7 @@ int main() {
 			}
 					//store the term in the array
 			data[0][termCount[0]][0] = temp;
+			originalData[termCount[0]] = temp;
 
 					//keep negative count and merged status in the array
 			data[0][termCount[0]][1] = to_string(negatives);
@@ -102,6 +109,8 @@ int main() {
 		for (int i = 0; i < 4; i++) {
 			termCount[i+1] = compareTerms(termCount[i], data[i], data[i+1]);
 		}
+
+		getUnmarged(data[0], data[1], data[2], data[3], reducedData);
 		
 		for (int i = 0; i < termCount[0]; i++) {
 			outfile << data[0][i][0] << " | " << data[0][i][1] << " | " << data[0][i][2] << endl;
@@ -225,6 +234,11 @@ int mergeDuplicates(int termCount, string data0[][col]) {
 						//reduce the table size
 				termCount--;
 
+						//delete the second duplicate element
+				data0[j][0] = { NULL };
+				data0[j][1] = { NULL };
+				data0[j][2] = { NULL };
+
 						//replace the duplicate with the next element and move table forward
 				for (int k = j; k < termCount; k++) {
 					data0[k][0] = data0[k + 1][0];
@@ -237,6 +251,27 @@ int mergeDuplicates(int termCount, string data0[][col]) {
 	return termCount;
 }
 
+//*****************************************************************************************************
+void getUnmarged(string data0[][col], string data1[][col], string data2[][col], string data3[][col],
+				 string newData[]) {
+
+		// Receives – data tables with elements
+		// Task - look for unmarged terms and put in one new list
+		// Returns - the new list with unmarged terms
+
+	for (int i = 0; i < terms; i++) {
+		if (data0[i][2] == "F")
+			cout << data0[i][0] << endl;
+		if (data1[i][2] == "F")
+			cout << data1[i][0] << endl;
+		if (data2[i][2] == "F")
+			cout << data2[i][0] << endl;
+		if (data3[i][2] == "F")
+			cout << data3[i][0] << endl;
+	}
+
+	return;
+}
 //*****************************************************************************************************
 void header(ofstream &outfile) {
 
