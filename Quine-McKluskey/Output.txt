@@ -2,7 +2,11 @@
                             Fall 2016       Assignment #1
 -------------------------------------------------------------------------------------
 
-acD + BD + aBC + ABc + ACD
+The Original Boolean Expression: 
+abcD + aBcD + aBCd + ABcd + aBCD + AbCD + ABcD + ABCD
+
+The Minimized Boolean Expression: 
+-------------------------------------------------------------------------------------
 
  ----------------------------------
  |      END OF PROGRAM OUTPUT     |

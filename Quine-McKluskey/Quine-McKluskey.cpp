@@ -26,7 +26,7 @@
 #include <fstream>
 #include <iomanip>
 
-//define the maximum variables and terms in the input file
+		//define the maximum variables and terms in the input file
 #define variables 6
 #define terms 12
 #define col 3
@@ -35,12 +35,12 @@ using namespace std;
 
 void header(ofstream &outfile);
 void footer(ofstream &outfile);
-int compareTerms(int termCount, string data0[][col], string data1[][col]);
-int mergeDuplicates(int termCount, string data0[][col]);
-int getUnmarged(string data0[][col], string data1[][col], string data2[][col], string data3[][col],
-				string newData[][2]);
 string removeUnderscores(string data);
-int getResults(string original[], string reduced[][2], string result[], int orig, int redu);
+int mergeDuplicates(int termCount, string data0[][col]);
+int compareTerms(int termCount, string data0[][col], string data1[][col]);
+int getResults(string original[], string reduced[][terms+1], string result[], int orig, int redu);
+int getUnmarged(string data0[][col], string data1[][col], string data2[][col], string data3[][col],
+				string newData[][terms+1]);
 
 int main() {
 			//set up input and output files
@@ -68,7 +68,7 @@ int main() {
 				
 				//set up for original data and reduced data for later matrix
 		string originalData[terms];
-		string reducedData[terms][2];
+		string reducedData[terms][terms+1];
 
 				//set up an array for the results
 		string result[terms];
@@ -120,12 +120,28 @@ int main() {
 
 				//get the final result from original data and reduced data lists
 		int resultCount = getResults(originalData, reducedData, result, termCount[0], unmarged);
-		
+
+				//print label for original expression
+		outfile << "The Original Boolean Expression: " << endl;
+
+				//print out the original expression with plus signs in between
+		for (int i = 0; i < termCount[0]; i++) {
+			if (i < termCount[0] - 1) outfile << originalData[i] << " + ";
+			else outfile << originalData[i] << endl;
+		}
+
+				//print label for minimized expression
+		outfile << endl << "The Minimized Boolean Expression: " << endl;
+
 				//print out the final results with plus signs in between
 		for (int i = 0; i < resultCount; i++) {
 			if (i < resultCount-1) outfile << result[i] << " + ";
 			else outfile << result[i] << endl;
 		}
+		
+				//print out line to separate out the new expressions
+		for (int i = 0; i < 85; i++) outfile << "-";
+		outfile << endl;
 
 				//update the sentinel check
 		infile >> sentinel;
@@ -133,6 +149,8 @@ int main() {
 
 			//print footer after everything
 	footer(outfile);
+
+	cin.get();
 
 			//return 0 and quit the app when everything is finished
 	return 0;
@@ -245,7 +263,7 @@ int mergeDuplicates(int termCount, string data0[][col]) {
 
 //*****************************************************************************************************
 int getUnmarged(string data0[][col], string data1[][col], string data2[][col], string data3[][col],
-				 string newData[][2]) {
+				 string newData[][terms+1]) {
 
 		// Receives – data tables with elements
 		// Task - look for unmarged terms and put in one new list
@@ -257,25 +275,25 @@ int getUnmarged(string data0[][col], string data1[][col], string data2[][col], s
 
 				//check in list 0
 		if (data0[i][2] == "F") {
-			newData[newCount][0] = data0[i][0];
+			newData[newCount][12] = data0[i][0];
 			newCount++;
 		}
 
 				//check in list 1
 		if (data1[i][2] == "F") {
-			newData[newCount][0] = data1[i][0];
+			newData[newCount][12] = data1[i][0];
 			newCount++;
 		}
 
 				//check in list 2
 		if (data2[i][2] == "F") {
-			newData[newCount][0] = data2[i][0];
+			newData[newCount][12] = data2[i][0];
 			newCount++;
 		}
 
 				//check in list 3
 		if (data3[i][2] == "F") {
-			newData[newCount][0] = data3[i][0];
+			newData[newCount][12] = data3[i][0];
 			newCount++;
 		}
 	}
@@ -284,7 +302,7 @@ int getUnmarged(string data0[][col], string data1[][col], string data2[][col], s
 }
 
 //*****************************************************************************************************
-int getResults(string original[], string reduced[][2], string result[], int orig, int redu) {
+int getResults(string original[], string reduced[][terms+1], string result[], int orig, int redu) {
 	
 		// Receives – original, reduced, and a new data lists; and their counts
 		// Task - get resutls from original data and reduced data lists
@@ -294,7 +312,7 @@ int getResults(string original[], string reduced[][2], string result[], int orig
 	int resultCount = 0;
 
 	for (int i = 0; i < redu; i++) {
-			
+
 				//set up a determination flag whether or not to put in result
 		bool flag = false;
 
@@ -303,22 +321,28 @@ int getResults(string original[], string reduced[][2], string result[], int orig
 			int	match = 0;
 
 					//look for matches and unmatches
-			for (int k = 0; k < reduced[i][0].length(); k++) {
-				if (reduced[i][0][k] == original[j][k] ||
-					reduced[i][0][k] == '_') {
+			for (int k = 0; k < reduced[i][12].length(); k++) {
+				if (reduced[i][12][k] == original[j][k] ||
+					reduced[i][12][k] == '_') {
 					match++;
 				}
+				
 			}
+			if(match==reduced[i][12].length()) reduced[i][j] = "X";
 
-					//put a true flag if the term is one of the minmums
-			if (match == reduced[i][0].length()) flag = true;
 		}
 
+		cout << reduced[i][12] << ": ";
+
+		for (int j = 0; j < orig; j++) {
+			cout << "\t" << reduced[i][j];
+		}
+		cout << endl;
 				//put in the result list
 		if (flag == true) {
 
 					//remove underscores before going into the result list
-			result[resultCount] = removeUnderscores(reduced[i][0]);
+			result[resultCount] = removeUnderscores(reduced[i][12]);
 			resultCount++;
 		}
 	}
