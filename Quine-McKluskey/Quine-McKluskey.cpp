@@ -149,8 +149,6 @@ int main() {
 			//print footer after everything
 	footer(outfile);
 
-	cin.get();
-
 			//return 0 and quit the app when everything is finished
 	return 0;
 }
